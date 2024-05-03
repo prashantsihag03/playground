@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playground - Langchain4j</title>
+</head>
+<body>
+<form id="ingredientForm" name="ingredientForm" method="post">
+    <label for="ingredient" >Food Ingredient: </label>
+    <input type="text" id="ingredient" placeholder="name of one food ingredient" required>
+    <input type="submit" value="Ask LLM">
+</form>
+<div>
+    <p><b>Response:</b> </p>
+    <p id="response"></p>
+</div>
+
+<script defer>
+    document.forms.namedItem("ingredientForm").addEventListener('submit', async (e) => {
+        e.preventDefault()
+        const ingredient = document.forms.namedItem("ingredientForm")[0].value + ""
+        if (ingredient.length < 1) {
+            console.error("Value can't be empty")
+            return
+        }
+
+        console.log("sending request")
+        fetch("/ingredient", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(ingredient.trim())
+        })
+            .then(response => {
+                response.text().then(data => {
+                    document.getElementById("response").innerHTML = data;
+                });
+            })
+            .catch(error => console.error('Error:', error));    })
+</script>
+</body>
+</html>
