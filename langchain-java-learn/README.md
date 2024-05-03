@@ -7,8 +7,11 @@ The project was created to learn langchain and use it in java to utilise a LLM m
 The project requires communicating with AWS so please export following environment variables:
 
 > export AWS_ACCESS_KEY_ID=<access_key_id>
+
 > export AWS_SECRET_ACCESS_KEY=<secret_access_key>
-> and if you have a session key, please export that as below:
+
+and if you have a session key, please export that as below:
+
 > export AWS_SESSION_KEY=<session_key>
 
 now, you can run the application from the root directory of the repository:
