@@ -1,9 +1,16 @@
 package com.example.langchainjavalearn;
 
+import java.io.IOException;
+
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.example.langchainjavalearn.DTOs.IngredientExplanationResultDTO;
 
 @RestController
 class IngredientController {
@@ -14,8 +21,9 @@ class IngredientController {
         this.ingredientService = ingredientService;
     }
 
-    @PostMapping("/ingredient")
-    public ResponseEntity<String> getIngredientExplaination(@RequestBody String ingredient) {
-        return ResponseEntity.ok(ingredientService.explainIngredient(ingredient));
+    @PostMapping(path = "/ingredient", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+    public ResponseEntity<IngredientExplanationResultDTO> getIngredientExplaination(
+            @RequestPart MultipartFile file) throws IOException {
+        return ResponseEntity.ok(ingredientService.explainIngredient(file));
     }
 }
