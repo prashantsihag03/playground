@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.util.ResourceUtils;
@@ -49,8 +50,14 @@ public class IngredientService {
         private final ChatLanguageModel openAiModel;
         private final ImageAnalysisClient client;
 
-        private final String AZ_VISION_ENDPOINT = "dummy";
-        private final String AZ_VISION_KEY = "dummy";
+        @Value("azure.vision.api.endpoint")
+        private String AZ_VISION_ENDPOINT;
+
+        @Value("azure.vision.api.key")
+        private String AZ_VISION_KEY;
+
+        @Value("openai.api.key")
+        private String OPEN_AI_API_KEY;
 
         private final String prompt;
 
@@ -68,7 +75,7 @@ public class IngredientService {
                 // .build();
 
                 openAiModel = OpenAiChatModel.builder()
-                                .apiKey("dummy")
+                                .apiKey(OPEN_AI_API_KEY)
                                 .modelName(OpenAiChatModelName.GPT_4_O)
                                 .build();
 
