@@ -31,5 +31,8 @@ build/
 ### VS Code ###
 .vscode/
 
+### Mac OS ###
+.DS_Store
+
 # local env variables
 .env
