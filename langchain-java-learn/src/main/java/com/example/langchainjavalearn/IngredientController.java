@@ -23,6 +23,8 @@ class IngredientController {
     @PostMapping(path = "/ingredient", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
     public ResponseEntity<IngredientExplanationResultDTO> getIngredientExplaination(
             @RequestPart MultipartFile file) throws IOException {
+        System.out.printf("File size is");
+        System.out.println();
         return ResponseEntity.ok(ingredientService.explainIngredient(file));
     }
 }
